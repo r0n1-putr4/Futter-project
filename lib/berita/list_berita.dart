@@ -25,14 +25,14 @@ class _ListBeritaState extends State<ListBerita> {
 
       return beritaModelFromJson(hasil.body).data;
     } catch (e) {
-      print("Terjadi kesalahan: $e");
+      print("Terjadi kesalahan : $e");
     }
     return null;
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TODO: implement initState //
     super.initState();
     dataJson = getData();
   }
