@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 import 'package:roni/model/berita_model.dart';
 import 'package:roni/utils/base_url.dart';
 
@@ -21,18 +20,16 @@ class _ListBeritaState extends State<ListBerita> {
         Uri.parse("${ApiConfig.baseUrl}/get_berita.php"),
       );
 
-      print("Status API : ${beritaModelFromJson(hasil.body).success}");
-
       return beritaModelFromJson(hasil.body).data;
     } catch (e) {
-      print("Terjadi kesalahan : $e");
+      print("Kesalahan ${e}");
     }
     return null;
   }
 
   @override
   void initState() {
-    // TODO: implement initState //
+    // TODO: implement initState
     super.initState();
     dataJson = getData();
   }
@@ -66,12 +63,7 @@ class _ListBeritaState extends State<ListBerita> {
                         image: NetworkImage(berita[index].gambar),
                         width: 200,
                       ),
-                      Expanded(
-                        child: Text(
-                          berita[index].isi,
-                          softWrap: false,
-                        ),
-                      ),
+                      Expanded(child: Text(berita[index].isi, softWrap: false)),
                     ],
                   ),
                 );
