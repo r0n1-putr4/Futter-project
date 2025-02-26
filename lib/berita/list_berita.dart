@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -44,7 +43,21 @@ class _ListBeritaState extends State<ListBerita> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("List Berita", style: TextStyle(color: Colors.white)),
+        title: TextField(
+          style: TextStyle(color: Colors.white),
+          cursorColor: Colors.white,
+          onChanged: (value) {
+            setState(() {
+              // searchQuery = value;
+            });
+          },
+          decoration: InputDecoration(
+            hintStyle: TextStyle(color: Colors.white),
+            hintText: "Search...",
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.search, color: Colors.white),
+          ),
+        ),
       ),
       body: FutureBuilder<List<Datum>?>(
         future: dataJson,
@@ -63,7 +76,9 @@ class _ListBeritaState extends State<ListBerita> {
                 return Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     elevation: 3,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,6 +138,15 @@ class _ListBeritaState extends State<ListBerita> {
               },
             );
           }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.redAccent,
+        child: Icon(Icons.add, size: 30,color: Colors.white,),
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("FAB Clicked! Add new news.")),
+          );
         },
       ),
     );
