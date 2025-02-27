@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:roni/berita/list_berita.dart';
 import 'dart:async';
+import 'package:roni/model/register_model.dart';
 
 import 'package:roni/utils/base_url.dart';
 
@@ -20,20 +21,49 @@ class _FormFlutterState extends State<FormFlutter> {
   var EditFullName = TextEditingController();
   var EditEmail = TextEditingController();
 
+  bool isLoading = false;
+
   Future<void> register() async {
     try {
+      isLoading = true;
       http.Response hasil = await http.post(
         Uri.parse("${ApiConfig.baseUrl}/register.php"),
         body: {
           "fullname": EditUserName.text,
           "username": EditPassword.text,
           "password": EditFullName.text,
-          "email": EditEmail.text,        },
+          "email": EditEmail.text,
+        },
       );
+      final registerModel = registerModelFromJson(hasil.body);
+      if (registerModel.success) {
+        setState(() {
+          isLoading = false;
+        });
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const ListBerita()),
+          (route) => false,
+        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(registerModel.message)));
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(registerModel.message)));
+      }
     } catch (e) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Kesalahan : ${e}")));
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -83,20 +113,21 @@ class _FormFlutterState extends State<FormFlutter> {
                 textInputType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 15),
-              MaterialButton(
-                color: Colors.red,
-                height: 45,
-                onPressed: () {
-                  setState(() {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Data berhasil disimpan")),
-                      );
-                    }
-                  });
-                },
-                child: Text("SAVE", style: TextStyle(color: Colors.white)),
+              Center(
+                child: isLoading ? CircularProgressIndicator() : MaterialButton(
+                  color: Colors.red,
+                  height: 45,
+                  onPressed: () {
+                    setState(() {
+                      if (_formKey.currentState!.validate()) {
+                        register();
+                      }
+                    });
+                  },
+                  child: Text("SAVE", style: TextStyle(color: Colors.white)),
+                ),
               ),
+
             ],
           ),
         ),
