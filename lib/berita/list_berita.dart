@@ -16,11 +16,13 @@ class ListBerita extends StatefulWidget {
 class _ListBeritaState extends State<ListBerita> {
   late Future<List<Datum>?> dataJson;
   var logger = Logger();
+  String judul = "";
+  TextEditingController judulController = TextEditingController();
 
-  Future<List<Datum>?> getData() async {
+  Future<List<Datum>?> getData(String judul) async {
     try {
       http.Response hasil = await http.get(
-        Uri.parse("${ApiConfig.baseUrl}/get_berita.php"),
+        Uri.parse("${ApiConfig.baseUrl}/get_berita.php?judul=${judul}"),
       );
       logger.d("Status ${beritaModelFromJson(hasil.body).success}");
       print("Status ${beritaModelFromJson(hasil.body).success}");
@@ -35,7 +37,7 @@ class _ListBeritaState extends State<ListBerita> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dataJson = getData();
+    dataJson = getData(judul);
   }
 
   @override
@@ -44,11 +46,12 @@ class _ListBeritaState extends State<ListBerita> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: TextField(
+          controller: judulController,
           style: TextStyle(color: Colors.white),
           cursorColor: Colors.white,
-          onChanged: (value) {
+          onSubmitted: (value) {
             setState(() {
-              // searchQuery = value;
+              dataJson = getData(value);
             });
           },
           decoration: InputDecoration(
@@ -89,6 +92,7 @@ class _ListBeritaState extends State<ListBerita> {
                           width: 80, // Adjust width
                           height: 80, // Adjust height
                           fit: BoxFit.cover,
+                          alignment: Alignment.topLeft,
                         ),
                         SizedBox(width: 10), // Space between image and text
                         Expanded(
@@ -113,6 +117,7 @@ class _ListBeritaState extends State<ListBerita> {
                               ),
                               SizedBox(height: 5),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   RatingBarIndicator(
                                     rating: berita[index].rating,
@@ -142,10 +147,10 @@ class _ListBeritaState extends State<ListBerita> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.redAccent,
-        child: Icon(Icons.add, size: 30,color: Colors.white,),
+        child: Icon(Icons.add, size: 30, color: Colors.white),
         onPressed: () {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("FAB Clicked! Add new news.")),
+            SnackBar(content: Text("FAB Clicked! Add new news. ${judul}")),
           );
         },
       ),
