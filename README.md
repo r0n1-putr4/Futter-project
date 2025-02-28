@@ -1,4 +1,2 @@
-Generate Model <br>
-https://app.quicktype.io/?l=dart <br>
-Pub Dev <br>
-https://pub.dev/
+Generate Model : https://app.quicktype.io/?l=dart <br>
+Pub Dev : https://pub.dev/
