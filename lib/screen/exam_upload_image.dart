@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
 import 'package:roni/berita/list_berita.dart';
 import 'package:roni/utils/base_url.dart';
 import 'package:logger/logger.dart';
@@ -60,6 +59,7 @@ class _UploadImageFlutterState extends State<UploadImageFlutter> {
       }
     } catch (e) {
       print("Error picking image: $e");
+      logger.d("Error : Picking Image: $e");
     }
   }
 
