@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roni/exam_nav_bar/custome_grid.dart';
 import 'package:roni/exam_nav_bar/form_register.dart';
-import 'package:roni/exam_nav_bar/search_list.dart';
+import 'package:roni/exam_nav_bar/list_view_exam.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar>
       appBar: AppBar(title: Text("Navigation Bar")),
       body: TabBarView(
         controller: tabController,
-        children: [FormRegister(), CustomeGrid(), SearchList()],
+        children: [FormRegister(), CustomeGrid(), ListViewExam()],
       ),
       bottomNavigationBar: BottomAppBar(
         child: TabBar(
@@ -43,8 +43,8 @@ class _BottomNavBarState extends State<BottomNavBar>
           unselectedLabelColor: Colors.grey,
           tabs: [
             Tab(text: "Form Register", icon: Icon(Icons.input)),
-            Tab(text: "Costume Grid", icon: Icon(Icons.grid_on)),
-            Tab(text: "Search List", icon: Icon(Icons.search)),
+            Tab(text: "Grid View", icon: Icon(Icons.grid_on)),
+            Tab(text: "List View", icon: Icon(Icons.list)),
           ],
         ),
       ),
