@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roni/exam_nav_bar/detail_movie.dart';
 
 class CustomeGrid extends StatefulWidget {
   const CustomeGrid({super.key});
@@ -31,7 +32,12 @@ class _CustomeGridState extends State<CustomeGrid> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                // Navigate to detail page (if needed)
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetailMovie(listMovie[index]),
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
