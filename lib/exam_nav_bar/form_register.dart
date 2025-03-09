@@ -14,7 +14,7 @@ class _FormRegisterState extends State<FormRegister> {
   TextEditingController email = TextEditingController();
   TextEditingController tglLahir = TextEditingController();
   TextEditingController password = TextEditingController();
-  String? valAgama, valJk;
+  String? valAgama, valJk, inputForm;
   final _formKey = GlobalKey<FormState>();
 
   Future selectDate() async {
@@ -150,57 +150,33 @@ class _FormRegisterState extends State<FormRegister> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    // Full width, height: 50
-                    minimumSize: Size(double.infinity, 50),
-                    backgroundColor: Colors.red,
-                    // Change button color
-                    foregroundColor: Colors.white, // Change text color
-                  ),
+                CostumeButton(
                   onPressed: () {
                     setState(() {
                       if (_formKey.currentState!.validate()) {
                         if (valJk != null && valAgama != null) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Data Register"),
-                                content: Column(
-                                  children: [
-                                    Text("Fullname : ${fullname.text}"),
-                                    Text("Username : ${username.text}"),
-                                    Text("Email : ${email.text}"),
-                                    Text("Password : ${password.text}"),
-                                    Text("Agamma : $valAgama"),
-                                    Text("Jenis Kelamin : $valJk"),
-                                    Text("Tanggal Lahir : ${tglLahir.text}"),
-                                  ],
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Dismiss"),
-                                  ),
-                                ],
-                              );
-                            },
+                          inputForm =
+                              "Full Name: ${fullname.text}\n"
+                              "Username: ${username.text}\n"
+                              "Email: ${email.text}'\n"
+                              "Tanggal Lahir: ${tglLahir.text}\n"
+                              "Agama: ${valAgama.toString()}";
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(inputForm.toString())),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Pilih agama dang jenis kelamin"),
-                              backgroundColor: Colors.green,
+                            SnackBar(
+                              content: Text(
+                                "Silahkan Pilih Agama serta Jenis Kelamin",
+                              ),
                             ),
                           );
                         }
                       }
                     });
                   },
-                  child: Text("SAVE", style: TextStyle(color: Colors.white)),
+                  labelButton: "SAVE",
                 ),
               ],
             ),
@@ -252,6 +228,34 @@ class CostumeTextFormField extends StatelessWidget {
           obscureText: obscureText,
         ),
       ],
+    );
+  }
+}
+
+class CostumeButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String labelButton;
+
+  const CostumeButton({
+    super.key,
+    required this.onPressed,
+    required this.labelButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        // Full width, height: 50
+        minimumSize: Size(double.infinity, 50),
+        backgroundColor: Colors.red,
+        // Change button color
+        foregroundColor: Colors.white, // Change text color
+      ),
+      onPressed: () {
+        onPressed.call();
+      },
+      child: Text(labelButton, style: TextStyle(color: Colors.white)),
     );
   }
 }
