@@ -122,35 +122,28 @@ class _FormRegisterState extends State<FormRegister> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Laki-laki",
-                        groupValue: valJk,
-                        onChanged: (val) {
-                          setState(() {
-                            valJk = val;
-                          });
-                        },
-                        activeColor: Colors.blue,
-                        title: const Text("Laki-laki"),
-                      ),
+                    CostumeRadio(
+                      value: "Pria",
+                      groupValue: valJk.toString(),
+                      onChange: (val) {
+                        setState(() {
+                          valJk = val;
+                        });
+                      },
                     ),
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Perempuan",
-                        groupValue: valJk,
-                        onChanged: (val) {
-                          setState(() {
-                            valJk = val;
-                          });
-                        },
-                        activeColor: Colors.blue,
-                        title: const Text("Perempuan"),
-                      ),
+                    CostumeRadio(
+                      value: "Wanita",
+                      groupValue: valJk.toString(),
+                      onChange: (val) {
+                        setState(() {
+                          valJk = val;
+                        });
+                      },
                     ),
                   ],
                 ),
                 CostumeButton(
+                  color: Colors.white,
                   onPressed: () {
                     setState(() {
                       if (_formKey.currentState!.validate()) {
@@ -158,9 +151,10 @@ class _FormRegisterState extends State<FormRegister> {
                           inputForm =
                               "Full Name: ${fullname.text}\n"
                               "Username: ${username.text}\n"
-                              "Email: ${email.text}'\n"
+                              "Email: ${email.text}\n"
                               "Tanggal Lahir: ${tglLahir.text}\n"
-                              "Agama: ${valAgama.toString()}";
+                              "Agama: ${valAgama.toString()}\n"
+                              "Jenis Kelamin: ${valJk.toString()}";
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(inputForm.toString())),
                           );
@@ -235,11 +229,12 @@ class CostumeTextFormField extends StatelessWidget {
 class CostumeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String labelButton;
+  final Color color;
 
   const CostumeButton({
     super.key,
     required this.onPressed,
-    required this.labelButton,
+    required this.labelButton, required this.color,
   });
 
   @override
@@ -250,12 +245,41 @@ class CostumeButton extends StatelessWidget {
         minimumSize: Size(double.infinity, 50),
         backgroundColor: Colors.red,
         // Change button color
-        foregroundColor: Colors.white, // Change text color
+        foregroundColor: color, // Change text color
       ),
       onPressed: () {
         onPressed.call();
       },
-      child: Text(labelButton, style: TextStyle(color: Colors.white)),
+      child: Text(labelButton, style: TextStyle(color: color)),
     );
   }
 }
+class CostumeRadio extends StatelessWidget {
+  final String value;
+  final String groupValue;
+  final ValueChanged<String> onChange;
+
+  const CostumeRadio({
+    super.key,
+    required this.value,
+    required this.groupValue,
+    required this.onChange,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: RadioListTile(
+        value: value,
+        groupValue: groupValue,
+        onChanged: (val) {
+          if (val != null) {
+            onChange(val); // Pass the selected value
+          }
+        },
+        title: Text(value),
+      ),
+    );
+  }
+}
+
