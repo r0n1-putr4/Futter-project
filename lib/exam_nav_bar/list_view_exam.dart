@@ -11,25 +11,33 @@ class ListViewExam extends StatefulWidget {
 class _ListViewExamState extends State<ListViewExam> {
   List<Map<String, dynamic>> listBerita = [
     {
-      "judul": "Judul Berita satu",
+      "judul": "Statistik Bertahan Idzes Saat Venezia Imbangi Napoli",
+      "isi":
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam er",
       "tanggal": "11 Maret 2025",
       "gambar": "images/berita1.jpeg",
       "rating": 4,
     },
     {
       "judul": "Judul Berita Dua",
+      "isi":
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam er",
       "tanggal": "12 Maret 2025",
       "gambar": "images/berita2.jpeg",
       "rating": 3.8,
     },
     {
       "judul": "Judul Berita Tiga",
+      "isi":
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam er",
       "tanggal": "13 Maret 2025",
       "gambar": "images/berita3.jpeg",
       "rating": 2,
     },
     {
       "judul": "Judul Berita Empat",
+      "isi":
+          "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam er",
       "tanggal": "14 Maret 2025",
       "gambar": "images/berita4.jpg",
       "rating": 3,
@@ -72,10 +80,6 @@ class _ListViewExamState extends State<ListViewExam> {
                           listBerita[index]['judul'],
                           textAlign: TextAlign.left,
                           style: TextStyle(fontSize: 24),
-                          softWrap: true, // Ensures text wraps
-                          overflow:
-                              TextOverflow
-                                  .visible, // Ensures text is shown fully
                         ),
                         Text(
                           listBerita[index]['tanggal'],
@@ -88,7 +92,6 @@ class _ListViewExamState extends State<ListViewExam> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-
                             RatingBarIndicator(
                               rating: listBerita[index]['rating'],
                               itemBuilder:
@@ -98,7 +101,7 @@ class _ListViewExamState extends State<ListViewExam> {
                               itemSize: 15,
                               direction: Axis.horizontal,
                             ),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 20),
                           ],
                         ),
                         SizedBox(height: 5),
