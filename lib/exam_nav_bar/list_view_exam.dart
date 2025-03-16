@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ListViewExam extends StatefulWidget {
   const ListViewExam({super.key});
@@ -12,25 +13,28 @@ class _ListViewExamState extends State<ListViewExam> {
     {
       "judul": "Judul Berita satu",
       "tanggal": "11 Maret 2025",
-      "gambar": "berita1.jpeg",
+      "gambar": "images/berita1.jpeg",
+      "rating": 4,
     },
     {
       "judul": "Judul Berita Dua",
       "tanggal": "12 Maret 2025",
-      "gambar": "berita2.jpeg",
+      "gambar": "images/berita2.jpeg",
+      "rating": 3.8,
     },
     {
       "judul": "Judul Berita Tiga",
       "tanggal": "13 Maret 2025",
-      "gambar": "berita3.jpeg",
+      "gambar": "images/berita3.jpeg",
+      "rating": 2,
     },
     {
       "judul": "Judul Berita Empat",
       "tanggal": "14 Maret 2025",
-      "gambar": "berita4.jpg",
+      "gambar": "images/berita4.jpg",
+      "rating": 3,
     },
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +50,61 @@ class _ListViewExamState extends State<ListViewExam> {
               ),
               elevation: 3,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // Aligns text to the top
                 children: [
-                  Image.network(
-                    "images/${listBerita[index]['gambar']}",
-                    width: 80, // Adjust width
-                    height: 80, // Adjust height
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topLeft,
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        listBerita[index]['gambar'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        listBerita[index]['judul'],
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 24),
-                        softWrap: true, // Ensures text wraps
-                        overflow:
-                        TextOverflow
-                            .visible, // Ensures text is shown fully
-                      ),
-                      Text(
-                        listBerita[index]['tanggal'],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
+                  // Space between image and text
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          listBerita[index]['judul'],
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 24),
+                          softWrap: true, // Ensures text wraps
+                          overflow:
+                              TextOverflow
+                                  .visible, // Ensures text is shown fully
                         ),
-                      ),
-                    ],
-                  ))
+                        Text(
+                          listBerita[index]['tanggal'],
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+
+                            RatingBarIndicator(
+                              rating: listBerita[index]['rating'],
+                              itemBuilder:
+                                  (context, index) =>
+                                      Icon(Icons.star, color: Colors.amber),
+                              itemCount: 5,
+                              itemSize: 15,
+                              direction: Axis.horizontal,
+                            ),
+                            SizedBox(width: 20,),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             );
