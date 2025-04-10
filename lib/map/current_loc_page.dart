@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +15,7 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
   String locationMessage = "Press the button to get location";
   String locationMessagePlace = "Press the button to get Place";
   LatLng _initialPosition = LatLng(-0.9472813143938821, 100.36326840320734);
-
+  String? _currentMapStyle;
 
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled;
@@ -56,13 +57,14 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
     );
 
     setState(() {
-     // getAddressFromLatLng(position);
+      // getAddressFromLatLng(position);
       _initialPosition = LatLng(position.latitude, position.longitude);
       locationMessage =
           "Latitude: ${position.latitude}, Longitude: ${position.longitude}";
     });
     getAddressFromLatLng(position);
   }
+
   Future<void> getAddressFromLatLng(Position position) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
@@ -72,10 +74,8 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
 
       Placemark place = placemarks[0];
       setState(() {
-        locationMessagePlace =
-        "Address: ${place.locality}, ${place.country}";
+        locationMessagePlace = "Address: ${place.locality}, ${place.country}";
       });
-
 
       //print("Address: ${place.locality}, ${place.country}");
     } catch (e) {
@@ -83,21 +83,11 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
     }
   }
 
-  MapType _currentMapType = MapType.normal;
-  void _onMapTypeButtonPressed() {
-    setState(() {
-      _currentMapType =
-      _currentMapType == MapType.normal
-          ? MapType.satellite
-          : MapType.normal;
-    });
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   // _getCurrentLocation();
+    _getCurrentLocation();
   }
 
   @override
@@ -105,28 +95,17 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
     return Scaffold(
       appBar: AppBar(title: Text("My Location Button")),
       body: Stack(
-        children:[
+        children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
               target: _initialPosition,
               zoom: 15,
             ),
-            myLocationEnabled: true, // 🔵 Show the blue dot
-            myLocationButtonEnabled: true, // 📍 Enable the location button
-            mapType: _currentMapType,
-            // onMapCreated: (controller) => _controller = controller,
+            myLocationEnabled: true,
+            // 🔵 Show the blue dot
+            myLocationButtonEnabled: true,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              onPressed: _onMapTypeButtonPressed,
-              materialTapTargetSize: MaterialTapTargetSize.padded,
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.map, size: 36.0),
-            ),
-          ),
-        ]
-
+        ],
       ),
     );
   }
