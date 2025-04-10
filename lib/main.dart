@@ -14,7 +14,7 @@ import 'package:roni/tabs/exam_tab_bar.dart';
 
 void main() {
   runApp(const MaterialApp(
-    title: "Belajar Flutter",
+    title: "Belajar Flutter ",
     home: CurrentLocPage(),
     debugShowCheckedModeBanner: false,
   ));
