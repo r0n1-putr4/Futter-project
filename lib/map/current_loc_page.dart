@@ -83,25 +83,50 @@ class _CurrentLocPageState extends State<CurrentLocPage> {
     }
   }
 
+  MapType _currentMapType = MapType.normal;
+  void _onMapTypeButtonPressed() {
+    setState(() {
+      _currentMapType =
+      _currentMapType == MapType.normal
+          ? MapType.satellite
+          : MapType.normal;
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getCurrentLocation();
+   // _getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("My Location Button")),
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: _initialPosition,
-          zoom: 15,
-        ),
-        myLocationEnabled: true, // 🔵 Show the blue dot
-        myLocationButtonEnabled: true, // 📍 Enable the location button
-       // onMapCreated: (controller) => _controller = controller,
+      body: Stack(
+        children:[
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: _initialPosition,
+              zoom: 15,
+            ),
+            myLocationEnabled: true, // 🔵 Show the blue dot
+            myLocationButtonEnabled: true, // 📍 Enable the location button
+            mapType: _currentMapType,
+            // onMapCreated: (controller) => _controller = controller,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FloatingActionButton(
+              onPressed: _onMapTypeButtonPressed,
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.map, size: 36.0),
+            ),
+          ),
+        ]
+
       ),
     );
   }
