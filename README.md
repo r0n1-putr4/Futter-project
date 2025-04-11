@@ -1,4 +1,4 @@
-# flutter_mi2a
+# flutter_project
 
 A new Flutter project.
 
