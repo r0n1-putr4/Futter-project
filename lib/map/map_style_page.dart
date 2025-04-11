@@ -19,6 +19,10 @@ class _MapStylePageState extends State<MapStylePage> {
     });
   }
 
+  void _loadStyle(){
+    _currentMapStyle == null ?  _loadMapStyle('assets/map_style.json') : _currentMapStyle = null;
+  }
+
   void _loadDefaultStyle() => _loadMapStyle('assets/map_style.json');
 
   void _clearStyle() => setState(() => _currentMapStyle = null);

@@ -42,7 +42,6 @@ class _MapTypePageState extends State<MapTypePage> {
               zoom: 15,
             ),
             mapType: _currentMapType,
-
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -54,7 +53,10 @@ class _MapTypePageState extends State<MapTypePage> {
                     onPressed: _onMapTypeButtonPressed,
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     backgroundColor: Colors.green,
-                    child: const Icon(Icons.map, size: 36.0),
+                    child:
+                        _currentMapType == MapType.normal
+                            ? const Icon(Icons.map, size: 36.0,color: Colors.white,)
+                            : const Icon(Icons.satellite_alt, size: 36.0,color: Colors.white,),
                   ),
                   SizedBox(height: 16.0),
                 ],
