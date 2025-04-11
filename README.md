@@ -13,5 +13,9 @@ Dependencies Project and API Key:
 - [Pub Dev](https://pub.dev/)
 - [Google Console](https://console.cloud.google.com/)
 
+### Command Show SHA 1 Project, change directory Android : cd Android
+- ./gradlew signingReport
+
+
 
 
