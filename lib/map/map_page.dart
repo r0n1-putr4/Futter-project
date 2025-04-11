@@ -17,6 +17,12 @@ class _MapPageState extends State<MapPage> {
           target: LatLng(-0.9472813143938821, 100.36326840320734),
           zoom: 16,
         ),
+        //compass and gesture
+        zoomGesturesEnabled: true,
+        tiltGesturesEnabled: true,
+        rotateGesturesEnabled: true,
+        scrollGesturesEnabled: true,
+
       ),
     );
   }
