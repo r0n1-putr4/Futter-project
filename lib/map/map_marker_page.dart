@@ -9,32 +9,25 @@ class MapMarkerPage extends StatefulWidget {
 }
 
 class _MapMarkerPageState extends State<MapMarkerPage> {
-  Set<Marker> _markers = {};
 
-  Future<void> _loadCustomMarkers() async {
-    final markers = <Marker>{
+  Set<Marker> _createMarkers() {
+    Set<Marker> markers = {};
+    markers.add(
       Marker(
         markerId: MarkerId("Tempat 1, Sumbar"),
         position: LatLng(-0.9485196050120748, 100.3609429170195),
         infoWindow: InfoWindow(title: 'Kota Padang, Sumbar', snippet: 'Padang'),
       ),
+    );
+    markers.add(
       Marker(
-        markerId: MarkerId("Tempat 1, Sumbar"),
+        markerId: MarkerId("Tempat 2, Sumbar"),
         position: LatLng(-0.9452317941385855, 100.36321441807704),
         infoWindow: InfoWindow(title: 'Kota Padang, Sumbar', snippet: 'Padang'),
       ),
-    };
+    );
 
-    setState(() {
-      _markers = markers;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _loadCustomMarkers();
+    return markers;
   }
 
   @override
@@ -45,7 +38,8 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
           target: LatLng(-0.9472813143938821, 100.36326840320734),
           zoom: 16,
         ),
-        markers: _markers,
+        // markers: Set<Marker>.of(_markerList),
+        markers: _createMarkers(),
       ),
     );
   }

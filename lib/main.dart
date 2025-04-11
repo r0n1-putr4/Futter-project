@@ -17,7 +17,7 @@ import 'package:roni/tabs/exam_tab_bar.dart';
 void main() {
   runApp(const MaterialApp(
     title: "Belajar Flutter ",
-    home: MapMarkerPage(),
+    home: MapPage(),
     debugShowCheckedModeBanner: false,
   ));
 }
