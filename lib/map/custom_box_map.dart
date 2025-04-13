@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class CustomBoxMap extends StatelessWidget {
   final String urlImage, namaTempat, harga;
   final double rating;
+  final VoidCallback onPressed;
 
   const CustomBoxMap({
     super.key,
@@ -11,6 +12,7 @@ class CustomBoxMap extends StatelessWidget {
     required this.namaTempat,
     required this.harga,
     required this.rating,
+    required this.onPressed,
   });
 
   @override
@@ -26,7 +28,7 @@ class CustomBoxMap extends StatelessWidget {
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-              child: Image.network(
+              child: Image.asset(
                 urlImage,
                 // Replace with your image URL
                 width: 280,
@@ -71,7 +73,9 @@ class CustomBoxMap extends StatelessWidget {
                       // Change button color
                       foregroundColor: Colors.red, // Change text color
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      onPressed.call();
+                    },
                     child: Text("VIEW", style: TextStyle(color: Colors.white)),
                   ),
                 ),
@@ -81,6 +85,5 @@ class CustomBoxMap extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
