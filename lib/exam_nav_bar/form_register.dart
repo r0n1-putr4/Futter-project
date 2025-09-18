@@ -17,6 +17,11 @@ class _FormRegisterState extends State<FormRegister> {
   String? valAgama, valJk, inputForm;
   final _formKey = GlobalKey<FormState>();
 
+  bool membaca = false;
+  bool olahraga = false;
+  bool musik = false;
+  bool traveling = false;
+
   Future selectDate() async {
     DateTime? pickDate = await showDatePicker(
       context: context,
@@ -142,10 +147,51 @@ class _FormRegisterState extends State<FormRegister> {
                     ),
                   ],
                 ),
+
+                CheckboxListTile(
+                  title: const Text("Membaca"),
+                  value: membaca,
+                  onChanged: (value) {
+                    setState(() => membaca = value!);
+                  },
+                ),
+                CheckboxListTile(
+                  title: const Text("Olahraga"),
+                  value: olahraga,
+                  onChanged: (value) {
+                    setState(() => olahraga = value!);
+                  },
+                ),
+                CheckboxListTile(
+                  title: const Text("Musik"),
+                  value: musik,
+                  onChanged: (value) {
+                    setState(() => musik = value!);
+                  },
+                ),
+                CheckboxListTile(
+                  title: const Text("Traveling"),
+                  value: traveling,
+                  onChanged: (value) {
+                    setState(() {
+                      traveling = value!;
+                    });
+
+                  },
+                ),
+                const SizedBox(height: 20),
+
                 CostumeButton(
                   color: Colors.white,
                   onPressed: () {
                     setState(() {
+                      final selected = [
+                        if (membaca) "Membaca",
+                        if (olahraga) "Olahraga",
+                        if (musik) "Musik",
+                        if (traveling) "Traveling",
+                      ];
+
                       if (_formKey.currentState!.validate()) {
                         if (valJk != null && valAgama != null) {
                           inputForm =
@@ -154,7 +200,8 @@ class _FormRegisterState extends State<FormRegister> {
                               "Email: ${email.text}\n"
                               "Tanggal Lahir: ${tglLahir.text}\n"
                               "Agama: ${valAgama.toString()}\n"
-                              "Jenis Kelamin: ${valJk.toString()}";
+                              "Jenis Kelamin: ${valJk.toString()}\n"
+                              "Pilihan Hobby ${selected.join(", ")}";
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(inputForm.toString())),
                           );

@@ -8,19 +8,36 @@ class ShowImages extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Images View",style: TextStyle(color: Colors.white),),
+        title: Text("Gambar", style: TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: Column(
           children: [
             Padding(padding: EdgeInsets.all(10)),
-            Text("Komputer",style: TextStyle(fontSize: 25,color: Colors.red),),
+            Text(
+              "Gambar Satu",
+              style: TextStyle(fontSize: 25, color: Colors.red),
+            ),
             Padding(padding: EdgeInsets.all(10)),
-            Image.asset("images/pic1.jpeg",width: 200,),
+            Image.asset("images/pic1.jpeg", width: 200),
             Padding(padding: EdgeInsets.all(10)),
-            Text("Komputer",style: TextStyle(fontSize: 25,color: Colors.red),),
+            Text(
+              "Gambar Dua",
+              style: TextStyle(fontSize: 25, color: Colors.red),
+            ),
+            Image.asset("images/pic2.jpeg", width: 200),
             Padding(padding: EdgeInsets.all(10)),
-            Image(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWpPNkRC0Ok3jO_qsEk7WuTfd2m-oiORoBwQ&s"),width: 200,)
+            Text(
+              "Gambar Menggunakan URL",
+              style: TextStyle(fontSize: 25, color: Colors.red),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                "https://ti.pnp.ac.id/wp-content/uploads/2022/01/logo-ti-pnp-05-1.png",
+                fit: BoxFit.cover,
+              ),
+            ),
           ],
         ),
       ),
