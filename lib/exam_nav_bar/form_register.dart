@@ -127,57 +127,88 @@ class _FormRegisterState extends State<FormRegister> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CostumeRadio(
-                      value: "Pria",
-                      groupValue: valJk.toString(),
-                      onChange: (val) {
-                        setState(() {
-                          valJk = val;
-                        });
-                      },
+                    Flexible(
+                      child: RadioListTile(
+                        value: "Pria",
+                        groupValue: valJk.toString(),
+                        onChanged: (val) {
+                          setState(() {
+                            valJk = val;
+                          });
+                        },
+                        title: Text('Pria'),
+                      ),
                     ),
-                    CostumeRadio(
-                      value: "Wanita",
-                      groupValue: valJk.toString(),
-                      onChange: (val) {
-                        setState(() {
-                          valJk = val;
-                        });
-                      },
+                    Flexible(
+                      child: RadioListTile(
+                        value: "Wanita",
+                        groupValue: valJk.toString(),
+                        onChanged: (val) {
+                          setState(() {
+                            valJk = val;
+                          });
+                        },
+                        title: Text('Wanita'),
+                      ),
                     ),
                   ],
                 ),
 
-                CheckboxListTile(
-                  title: const Text("Membaca"),
-                  value: membaca,
-                  onChanged: (value) {
-                    setState(() => membaca = value!);
-                  },
+                Row(
+                  children: [
+                    Flexible(
+                      child: CheckboxListTile(
+                        value: membaca,
+                        onChanged: (val) {
+                          setState(() {
+                            membaca = val!;
+                          });
+                        },
+                        title: Text("Membaca"),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                    ),
+                    Flexible(
+                      child: CheckboxListTile(
+                        value: olahraga,
+                        onChanged: (val) {
+                          setState(() {
+                            olahraga = val!;
+                          });
+                        },
+                        title: Text("Olahraga"),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                    ),
+                  ],
                 ),
-                CheckboxListTile(
-                  title: const Text("Olahraga"),
-                  value: olahraga,
-                  onChanged: (value) {
-                    setState(() => olahraga = value!);
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text("Musik"),
-                  value: musik,
-                  onChanged: (value) {
-                    setState(() => musik = value!);
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text("Traveling"),
-                  value: traveling,
-                  onChanged: (value) {
-                    setState(() {
-                      traveling = value!;
-                    });
-
-                  },
+                Row(
+                  children: [
+                    Flexible(
+                      child: CheckboxListTile(
+                        value: olahraga,
+                        onChanged: (val) {
+                          setState(() {
+                            olahraga = val!;
+                          });
+                        },
+                        title: Text("Musik"),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                    ),
+                    Flexible(
+                      child: CheckboxListTile(
+                        value: olahraga,
+                        onChanged: (val) {
+                          setState(() {
+                            olahraga = val!;
+                          });
+                        },
+                        title: Text("Olahraga"),
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
 
