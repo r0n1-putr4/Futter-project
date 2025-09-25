@@ -52,6 +52,7 @@ class _ListViewExamState extends State<ListViewExam> {
         child: ListView.builder(
           itemCount: listBerita.length,
           itemBuilder: (context, index) {
+            Map<String, dynamic> item = listBerita[index];
             return Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -65,7 +66,7 @@ class _ListViewExamState extends State<ListViewExam> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        listBerita[index]['gambar'],
+                        item['gambar'],
                         fit: BoxFit.cover,
                       ),
                     ),
