@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:roni/api/customer_page.dart';
 import 'package:roni/berita/list_berita.dart';
 import 'package:roni/exam_nav_bar/bottom_nav_bar.dart';
 import 'package:roni/map/current_loc_page.dart';
@@ -24,7 +25,7 @@ import 'package:roni/tabs/exam_tab_bar.dart';
 void main() {
   runApp(MaterialApp(
     title: "Belajar Flutter",
-    home: const ListViewItem(),
+    home: const MapProject(),
     debugShowCheckedModeBanner: false,
     routes: {
       '/halSatu' : (context) => HalSatu(),

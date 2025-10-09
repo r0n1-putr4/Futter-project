@@ -1,103 +1,160 @@
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:custom_info_window/custom_info_window.dart';
-import 'package:roni/map/custom_box_map.dart';
-import 'package:roni/map/map_detail_page.dart';
+
+import 'map_detail_page.dart';
 
 class MapProject extends StatefulWidget {
   const MapProject({super.key});
 
   @override
-  State<MapProject> createState() => _MapProjectState();
+  State<MapProject> createState() => _MapProject();
 }
 
-class _MapProjectState extends State<MapProject> {
+class _MapProject extends State<MapProject> {
   final CustomInfoWindowController _customInfoWindowController =
-      CustomInfoWindowController();
+  CustomInfoWindowController();
+
+  MapType _mapType = MapType.normal;
+
+  void _pilihMapType() {
+    setState(() {
+      _mapType =
+      _mapType == MapType.normal ? MapType.satellite : MapType.normal;
+    });
+  }
+
+  String? _currentTheme;
+
+  Future<void> _loadTheme(String path) async {
+    String theme = await rootBundle.loadString(path);
+    setState(() {
+      _currentTheme = theme;
+    });
+  }
+
+  void _standardTheme() => _loadTheme('assets/theme_map/standard.json');
+
+  void _silverTheme() => _loadTheme('assets/theme_map/silver.json');
+
+  final koordinat = LatLng(-0.9171936793549167, 100.35451897474805);
 
   final List<Map<String, dynamic>> _listHotel = [
     {
-      'namaTempat': 'Wisma Ayank',
-      'urlImage':
-          'images/hotel1.jpeg',
-      'harga': 'Rp. 150.000',
-      'lat': -0.944713233061033,
-      'lng': 100.41347778770545,
-      'rating': 4.0,
-      'alamat':
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata',
+      "id": "id-01",
+      "nama_hotel": "Urbanview Hotel Falah Residence Syariah By RedDoorz",
+      "harga": "Rp. 238.2930",
+      "gambar": "assets/images/gambar_1.jpg",
+      "rating": 4.5,
+      "koordinat": LatLng(-0.9427817234009337, 100.3772617891464),
+      "alamat":
+      "Jl. Rasak, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera Barat",
     },
     {
-      'namaTempat': 'Falah Residence Syariah',
-      'urlImage':
-          'images/hotel2.jpeg',
-      'harga': 'Rp. 170.000',
-      'lat': -0.9435368127474888,
-      'lng': 100.39824221327348,
-      'rating': 3.5,
-      'alamat':
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata',
+      "id": "id-02",
+      "nama_hotel": "OYO",
+      "harga": "Rp. 77.929",
+      "gambar": "assets/images/gambar_2.jpg",
+      "rating": 4.0,
+      "koordinat": LatLng(-0.9429533778111844, 100.39734637754376),
+      "alamat":
+      "6 Jl. Banio No.6, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera, Bara, Padang City, West Sumatra 25136",
+    },
+    {
+      "id": "id-03",
+      "nama_hotel": "Bumi",
+      "harga": "Rp. 208.199",
+      "gambar": "assets/images/gambar_3.jpg",
+      "rating": 3.0,
+      "koordinat": LatLng(-0.9427817206231481, 100.37554512585452),
+      "alamat":
+      "1, Beringin V No.1, RT.2/RW.5, Lolong Belanti, Padang Utara, West Sumatra 25136",
     },
   ];
-
-  String? _currentMapStyle;
 
   Set<Marker> _createMarkers() {
     Set<Marker> markers = {};
     for (var hotel in _listHotel) {
-      final LatLng koordinat = LatLng(hotel['lat'], hotel['lng']);
       markers.add(
         Marker(
-          markerId: MarkerId(hotel['namaTempat']),
-          position: koordinat,
+          markerId: MarkerId(hotel['id']),
+          position: hotel['koordinat'],
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
-              CustomBoxMap(
-                urlImage: hotel['urlImage'],
-                namaTempat: hotel['namaTempat'],
-                harga: hotel['harga'],
-                rating: hotel['rating'],
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => MapDetailPage(hotel)),
-                  );
-                },
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
+                ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        child: Image.asset(
+                          hotel['gambar'],
+                          width: 280,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Text(
+                            hotel['nama_hotel'],
+                            style: TextStyle(fontSize: 9),
+                          ),
+                          Text(hotel['harga'], style: TextStyle(fontSize: 12)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text("${hotel['rating']}", style: TextStyle(fontSize: 10)),
+                              SizedBox(width: 5,),
+                              Icon(Icons.star,size: 13,color: Colors.yellow,)
+                            ],
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              // Change button color
+                              foregroundColor: Colors.red, // Change text color
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => MapDetailPage(hotel)),
+                              );
+                            },
+                            child: Text("VIEW", style: TextStyle(color: Colors.white)),
+                          )
+
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              koordinat,
+              hotel['koordinat'],
             );
           },
         ),
       );
     }
-
     return markers;
   }
 
-  MapType _currentMapType = MapType.normal;
-
-  void _onMapTypeButtonPressed() {
-    setState(() {
-      _currentMapType =
-          _currentMapType == MapType.normal
-              ? MapType.satellite
-              : MapType.normal;
-    });
+  @override
+  void dispose() {
+    _customInfoWindowController.dispose();
+    super.dispose();
   }
-
-  Future<void> _loadMapStyle(String path) async {
-    String style = await rootBundle.loadString(path);
-    setState(() {
-      _currentMapStyle = style;
-    });
-  }
-
-  void _clearStyle() => setState(() => _currentMapStyle = null);
-
-  void _loadDarkStyle() => _loadMapStyle('assets/map_style_dark.json');
-
-  void _loadRetroStyle() => _loadMapStyle('assets/map_style_retro.json');
 
   @override
   Widget build(BuildContext context) {
@@ -105,18 +162,21 @@ class _MapProjectState extends State<MapProject> {
       body: Stack(
         children: [
           GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(-0.946283232836479, 100.39463665459901),
-              zoom: 12.8,
-            ),
-            // markers: Set<Marker>.of(_markerList),
+            initialCameraPosition: CameraPosition(target: koordinat, zoom: 15),
             markers: _createMarkers(),
-            onMapCreated: (controller) {
+
+            mapType: _mapType,
+            style: _currentTheme,
+
+            onTap: (position) {
+              _customInfoWindowController.hideInfoWindow!();
+            },
+            onCameraMove: (position) {
+              _customInfoWindowController.onCameraMove!();
+            },
+            onMapCreated: (GoogleMapController controller) async {
               _customInfoWindowController.googleMapController = controller;
             },
-            onTap: (position) => _customInfoWindowController.hideInfoWindow!(),
-            mapType: _currentMapType,
-            style: _currentMapStyle,
           ),
           Positioned(
             bottom: 16,
@@ -124,49 +184,32 @@ class _MapProjectState extends State<MapProject> {
             child: Column(
               children: [
                 FloatingActionButton(
-                  onPressed: _onMapTypeButtonPressed,
+                  onPressed: _pilihMapType,
                   materialTapTargetSize: MaterialTapTargetSize.padded,
                   backgroundColor: Colors.green,
                   child:
-                      _currentMapType == MapType.normal
-                          ? const Icon(
-                            Icons.map,
-                            size: 36.0,
-                            color: Colors.white,
-                          )
-                          : const Icon(
-                            Icons.satellite_alt,
-                            size: 36.0,
-                            color: Colors.white,
-                          ),
-                ),
-                SizedBox(height: 16.0),
-                FloatingActionButton(
-                  onPressed: _clearStyle,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.green,
-                  child: const Icon(
-                    Icons.sunny,
-                    size: 36.0,
+                  _mapType == MapType.normal
+                      ? Icon(Icons.map, size: 36, color: Colors.white)
+                      : Icon(
+                    Icons.satellite,
+                    size: 36,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 10),
                 FloatingActionButton(
-                  onPressed: _loadDarkStyle,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  onPressed: _standardTheme,
                   backgroundColor: Colors.green,
-                  child: const Icon(Icons.dark_mode, size: 36.0),
+                  child: Icon(Icons.sunny, size: 36, color: Colors.white),
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 10),
                 FloatingActionButton(
-                  onPressed: _loadRetroStyle,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  onPressed: _silverTheme,
                   backgroundColor: Colors.green,
-                  child: const Icon(
+                  child: Icon(
                     Icons.location_city,
-                    size: 36.0,
-                    color: Colors.yellow,
+                    size: 36,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -174,8 +217,8 @@ class _MapProjectState extends State<MapProject> {
           ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
-            height: 200,
             width: 200,
+            height: 250,
             offset: 50,
           ),
         ],
