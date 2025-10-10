@@ -1,3 +1,4 @@
+import 'package:clippy_flutter/triangle.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,14 +15,14 @@ class MapProject extends StatefulWidget {
 
 class _MapProject extends State<MapProject> {
   final CustomInfoWindowController _customInfoWindowController =
-  CustomInfoWindowController();
+      CustomInfoWindowController();
 
   MapType _mapType = MapType.normal;
 
   void _pilihMapType() {
     setState(() {
       _mapType =
-      _mapType == MapType.normal ? MapType.satellite : MapType.normal;
+          _mapType == MapType.normal ? MapType.satellite : MapType.normal;
     });
   }
 
@@ -49,7 +50,7 @@ class _MapProject extends State<MapProject> {
       "rating": 4.5,
       "koordinat": LatLng(-0.9427817234009337, 100.3772617891464),
       "alamat":
-      "Jl. Rasak, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera Barat",
+          "Jl. Rasak, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera Barat",
     },
     {
       "id": "id-02",
@@ -59,7 +60,7 @@ class _MapProject extends State<MapProject> {
       "rating": 4.0,
       "koordinat": LatLng(-0.9429533778111844, 100.39734637754376),
       "alamat":
-      "6 Jl. Banio No.6, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera, Bara, Padang City, West Sumatra 25136",
+          "6 Jl. Banio No.6, Lolong Belanti, Kec. Padang Utara, Kota Padang, Sumatera, Bara, Padang City, West Sumatra 25136",
     },
     {
       "id": "id-03",
@@ -69,7 +70,7 @@ class _MapProject extends State<MapProject> {
       "rating": 3.0,
       "koordinat": LatLng(-0.9427817206231481, 100.37554512585452),
       "alamat":
-      "1, Beringin V No.1, RT.2/RW.5, Lolong Belanti, Padang Utara, West Sumatra 25136",
+          "1, Beringin V No.1, RT.2/RW.5, Lolong Belanti, Padang Utara, West Sumatra 25136",
     },
   ];
 
@@ -82,64 +83,132 @@ class _MapProject extends State<MapProject> {
           position: hotel['koordinat'],
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(10),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // === CARD UTAMA ===
+                  Container(
+                    width: 220,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
                         ),
-                        child: Image.asset(
-                          hotel['gambar'],
-                          width: 280,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          Text(
-                            hotel['nama_hotel'],
-                            style: TextStyle(fontSize: 9),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // === GAMBAR HOTEL ===
+                        ClipRRect(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(16),
                           ),
-                          Text(hotel['harga'], style: TextStyle(fontSize: 12)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text("${hotel['rating']}", style: TextStyle(fontSize: 10)),
-                              SizedBox(width: 5,),
-                              Icon(Icons.star,size: 13,color: Colors.yellow,)
-                            ],
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              // Change button color
-                              foregroundColor: Colors.red, // Change text color
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => MapDetailPage(hotel)),
+                          child: Image.asset(
+                            hotel['gambar'],
+                            width: double.infinity,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 100,
+                                color: Colors.grey[300],
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.image_not_supported,
+                                  color: Colors.grey[600],
+                                ),
                               );
                             },
-                            child: Text("VIEW", style: TextStyle(color: Colors.white)),
-                          )
+                          ),
+                        ),
 
-                        ],
-                      ),
+                        // === INFORMASI HOTEL ===
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                hotel['nama_hotel'],
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                hotel['harga'],
+                                style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 6),
+
+                              // === RATING ===
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "${hotel['rating']}",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  Icon(Icons.star, size: 13, color: Colors.yellow),
+                                ],
+                              ),
+
+                              SizedBox(height: 8),
+
+                              // === TOMBOL VIEW ===
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => MapDetailPage(hotel),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                  ),
+                                  child: Text(
+                                    "VIEW",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  // === SEGITIGA PENANDA (DI BAWAH CARD) ===
+                  Triangle.isosceles(
+                    edge: Edge.BOTTOM,
+                    child: Container(color: Colors.blue, width: 25, height: 12),
+                  ),
+                ],
               ),
               hotel['koordinat'],
             );
@@ -188,13 +257,13 @@ class _MapProject extends State<MapProject> {
                   materialTapTargetSize: MaterialTapTargetSize.padded,
                   backgroundColor: Colors.green,
                   child:
-                  _mapType == MapType.normal
-                      ? Icon(Icons.map, size: 36, color: Colors.white)
-                      : Icon(
-                    Icons.satellite,
-                    size: 36,
-                    color: Colors.white,
-                  ),
+                      _mapType == MapType.normal
+                          ? Icon(Icons.map, size: 36, color: Colors.white)
+                          : Icon(
+                            Icons.satellite,
+                            size: 36,
+                            color: Colors.white,
+                          ),
                 ),
                 SizedBox(height: 10),
                 FloatingActionButton(
@@ -218,7 +287,7 @@ class _MapProject extends State<MapProject> {
           CustomInfoWindow(
             controller: _customInfoWindowController,
             width: 200,
-            height: 250,
+            height: 280,
             offset: 50,
           ),
         ],
