@@ -9,15 +9,20 @@ class MapDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(hotel['namaTempat'])),
+      appBar: AppBar(title: Text(hotel['nama_hotel'])),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(hotel['urlImage']),
+              Image.asset(
+                hotel['gambar'],
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 200,
+              ),
               Text(
-                hotel['namaTempat'],
+                hotel['nama_hotel'],
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),

@@ -46,7 +46,7 @@ class _MapProject extends State<MapProject> {
       "id": "id-01",
       "nama_hotel": "Urbanview Hotel Falah Residence Syariah By RedDoorz",
       "harga": "Rp. 238.2930",
-      "gambar": "assets/images/gambar_1.jpg",
+      "gambar": "images/hotel1.jpeg",
       "rating": 4.5,
       "koordinat": LatLng(-0.9427817234009337, 100.3772617891464),
       "alamat":
@@ -56,7 +56,7 @@ class _MapProject extends State<MapProject> {
       "id": "id-02",
       "nama_hotel": "OYO",
       "harga": "Rp. 77.929",
-      "gambar": "assets/images/gambar_2.jpg",
+      "gambar": "images/hotel2.jpeg",
       "rating": 4.0,
       "koordinat": LatLng(-0.9429533778111844, 100.39734637754376),
       "alamat":
@@ -66,7 +66,7 @@ class _MapProject extends State<MapProject> {
       "id": "id-03",
       "nama_hotel": "Bumi",
       "harga": "Rp. 208.199",
-      "gambar": "assets/images/gambar_3.jpg",
+      "gambar": "images/gambar_3.jpg",
       "rating": 3.0,
       "koordinat": LatLng(-0.9427817206231481, 100.37554512585452),
       "alamat":
@@ -206,7 +206,7 @@ class _MapProject extends State<MapProject> {
                   // === SEGITIGA PENANDA (DI BAWAH CARD) ===
                   Triangle.isosceles(
                     edge: Edge.BOTTOM,
-                    child: Container(color: Colors.blue, width: 25, height: 12),
+                    child: Container(color: Colors.white, width: 25, height: 12),
                   ),
                 ],
               ),
