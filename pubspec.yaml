@@ -44,6 +44,8 @@ dependencies:
   sqflite: ^2.3.2
   path: ^1.9.0
   clippy_flutter: ^2.0.0-nullsafety.1
+  syncfusion_flutter_gauges: ^31.1.18
+
 
 
   # The following adds the Cupertino Icons font to your application.

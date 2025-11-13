@@ -20,12 +20,13 @@ import 'package:roni/screen/list_builder_json.dart';
 import 'package:roni/screen/list_view.dart';
 import 'package:roni/screen/row_column.dart';
 import 'package:roni/screen/show_images.dart';
+import 'package:roni/smart/gauges_page.dart';
 import 'package:roni/tabs/exam_tab_bar.dart';
 
 void main() {
   runApp(MaterialApp(
     title: "Belajar Flutter",
-    home: const MapProject(),
+    home: const GaugesPage(),
     debugShowCheckedModeBanner: false,
     routes: {
       '/halSatu' : (context) => HalSatu(),
