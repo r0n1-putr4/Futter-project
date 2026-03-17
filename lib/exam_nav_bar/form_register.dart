@@ -22,6 +22,15 @@ class _FormRegisterState extends State<FormRegister> {
   bool musik = false;
   bool traveling = false;
 
+  static const listAgama = [
+    "Islam",
+    "Kristen Protestan",
+    "Kristen Katolik",
+    "Hindu",
+    "Budha",
+    "Konghucu",
+  ];
+
   Future selectDate() async {
     DateTime? pickDate = await showDatePicker(
       context: context,
@@ -94,32 +103,17 @@ class _FormRegisterState extends State<FormRegister> {
                     border: Border.all(width: 1, color: Colors.black54),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: DropdownButton(
+                  child: DropdownButton<String>(
                     value: valAgama,
-                    underline: Container(),
                     isExpanded: true,
+                    underline: const SizedBox(),
                     items:
-                        [
-                          "Islam",
-                          "Kristen Protestan",
-                          "Kristen Katolik",
-                          "Hindu",
-                          "Budha",
-                          "Konghucu",
-                        ].map((e) {
-                          return DropdownMenuItem(
-                            value: e,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(e),
-                            ),
-                          );
-                        }).toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        valAgama = val;
-                      });
-                    },
+                        listAgama
+                            .map(
+                              (e) => DropdownMenuItem(value: e, child: Text(e)),
+                            )
+                            .toList(),
+                    onChanged: (val) => setState(() => valAgama = val),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -303,6 +297,7 @@ class CostumeTextFormField extends StatelessWidget {
     );
   }
 }
+
 class CostumeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String labelButton;
@@ -311,7 +306,8 @@ class CostumeButton extends StatelessWidget {
   const CostumeButton({
     super.key,
     required this.onPressed,
-    required this.labelButton, required this.color,
+    required this.labelButton,
+    required this.color,
   });
 
   @override
@@ -331,6 +327,7 @@ class CostumeButton extends StatelessWidget {
     );
   }
 }
+
 class CostumeRadio extends StatelessWidget {
   final String value;
   final String groupValue;
@@ -359,4 +356,3 @@ class CostumeRadio extends StatelessWidget {
     );
   }
 }
-

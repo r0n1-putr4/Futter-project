@@ -1,28 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:roni/api/customer_page.dart';
-import 'package:roni/berita/list_berita.dart';
-import 'package:roni/exam_nav_bar/bottom_nav_bar.dart';
-import 'package:roni/map/current_loc_page.dart';
-import 'package:roni/map/map_costume_page.dart';
-import 'package:roni/map/map_marker_page.dart';
-import 'package:roni/map/map_page.dart';
-import 'package:roni/map/map_project.dart';
-import 'package:roni/map/map_style_page.dart';
-import 'package:roni/map/map_type_page.dart';
 import 'package:roni/pindah/hal_dua.dart';
 import 'package:roni/pindah/hal_satu.dart';
-import 'package:roni/screen/exam_app_bar.dart';
-import 'package:roni/screen/exam_form.dart';
-import 'package:roni/screen/exam_nav_route.dart';
-import 'package:roni/screen/exam_upload_image.dart';
-import 'package:roni/screen/list_builder_json.dart';
-import 'package:roni/screen/list_view.dart';
-import 'package:roni/screen/row_column.dart';
-import 'package:roni/screen/show_images.dart';
-import 'package:roni/smart/gauges_page.dart';
 import 'package:roni/smart/heart_page.dart';
-import 'package:roni/tabs/exam_tab_bar.dart';
 
 void main() {
   runApp(MaterialApp(
