@@ -22,8 +22,7 @@ class _FormRegisterState extends State<FormRegister> {
   bool musik = false;
   bool traveling = false;
 
-
-  final listAgama = [
+  static const listAgama = [
     "Islam",
     "Kristen Protestan",
     "Kristen Katolik",
