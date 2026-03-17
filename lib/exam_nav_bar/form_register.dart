@@ -96,26 +96,35 @@ class _FormRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 10),
                 Text("Pilih Agama", style: TextStyle(fontSize: 18)),
-                Container(
-                  alignment: Alignment.center,
-                  height: 65,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.black54),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: DropdownButton<String>(
-                    value: valAgama,
-                    isExpanded: true,
-                    underline: const SizedBox(),
+
+                  // decoration: BoxDecoration(
+                  //   border: Border.all(width: 1, color: Colors.black54),
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      // labelText: "Pilih Agama",
+                      border: OutlineInputBorder(),
+                    ),
                     items:
                         listAgama
                             .map(
                               (e) => DropdownMenuItem(value: e, child: Text(e)),
                             )
                             .toList(),
-                    onChanged: (val) => setState(() => valAgama = val),
+                    onChanged: (val) {
+                      setState(() {
+                        valAgama = val;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Agama wajib dipilih";
+                      }
+                      return null;
+                    },
                   ),
-                ),
+
                 SizedBox(height: 10),
                 Text("Pilih Jenis Kelamin", style: TextStyle(fontSize: 18)),
                 Row(
