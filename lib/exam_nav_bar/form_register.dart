@@ -96,66 +96,59 @@ class _FormRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 10),
                 Text("Pilih Agama", style: TextStyle(fontSize: 18)),
-
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(width: 1, color: Colors.black54),
-                  //   borderRadius: BorderRadius.circular(10),
-                  // ),
-                  DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      // labelText: "Pilih Agama",
-                      border: OutlineInputBorder(),
-                    ),
-                    items:
-                        listAgama
-                            .map(
-                              (e) => DropdownMenuItem(value: e, child: Text(e)),
-                            )
-                            .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        valAgama = val;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Agama wajib dipilih";
-                      }
-                      return null;
-                    },
+                DropdownButtonFormField<String>(// Widget Menampilkan DropdownButton
+                  decoration: InputDecoration(// Mengatur tampilan field seperti TextField
+                    border: OutlineInputBorder(), //Memberi border kotak
                   ),
+                  items: //item data yang bersumber dari variable array listAgama
+                      listAgama
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: Text(e)),
+                          )
+                          .toList(),
+                  onChanged: (val) {// Dipanggil saat user memilih item
+                    setState(() {
+                      valAgama = val;
+                    });
+                  },
+                  validator: (value) {{// Fungsi untuk validasi input
+                    if (value == null || value.isEmpty) {{// belum pilih atau kosong
+                      return "Agama wajib dipilih";
+                    }
+                    return null;
+                  },
+                ),
 
                 SizedBox(height: 10),
                 Text("Pilih Jenis Kelamin", style: TextStyle(fontSize: 18)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Pria",
-                        groupValue: valJk.toString(),
-                        onChanged: (val) {
-                          setState(() {
-                            valJk = val;
-                          });
-                        },
-                        title: Text('Pria'),
+
+                RadioGroup<String>(
+                  groupValue: valJk,
+                  onChanged: (value) {
+                    setState(() {
+                      valJk = value;
+                    });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        child: RadioListTile<String>(
+                          value: "L",
+                          title: Text("Laki-laki"),
+                        ),
                       ),
-                    ),
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Wanita",
-                        groupValue: valJk.toString(),
-                        onChanged: (val) {
-                          setState(() {
-                            valJk = val;
-                          });
-                        },
-                        title: Text('Wanita'),
+                      Flexible(
+                        child: RadioListTile<String>(
+                          value: "P",
+                          title: Text("Perempuan"),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+
+                Text("Pilih Hobby", style: TextStyle(fontSize: 18)),
 
                 Row(
                   children: [
@@ -189,10 +182,10 @@ class _FormRegisterState extends State<FormRegister> {
                   children: [
                     Flexible(
                       child: CheckboxListTile(
-                        value: olahraga,
+                        value: musik,
                         onChanged: (val) {
                           setState(() {
-                            olahraga = val!;
+                            musik = val!;
                           });
                         },
                         title: Text("Musik"),
@@ -201,13 +194,13 @@ class _FormRegisterState extends State<FormRegister> {
                     ),
                     Flexible(
                       child: CheckboxListTile(
-                        value: olahraga,
+                        value: traveling,
                         onChanged: (val) {
                           setState(() {
-                            olahraga = val!;
+                            traveling = val!;
                           });
                         },
-                        title: Text("Olahraga"),
+                        title: Text("Travelling"),
                         controlAffinity: ListTileControlAffinity.leading,
                       ),
                     ),
