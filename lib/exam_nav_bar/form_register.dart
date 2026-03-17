@@ -111,8 +111,8 @@ class _FormRegisterState extends State<FormRegister> {
                       valAgama = val;
                     });
                   },
-                  validator: (value) {{// Fungsi untuk validasi input
-                    if (value == null || value.isEmpty) {{// belum pilih atau kosong
+                  validator: (value) {// Fungsi untuk validasi input
+                    if (value == null || value.isEmpty) {// belum pilih atau kosong
                       return "Agama wajib dipilih";
                     }
                     return null;
