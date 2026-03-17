@@ -234,8 +234,8 @@ class _FormRegisterState extends State<FormRegister> {
                 ElevatedButton(
                   onPressed: () {
                     double t = double.parse(fullname.text);
-                    double u = double.parse(cUTS.text);
-                    double ua = double.parse(cUAS.text);
+                    double u = double.parse(fullname.text);
+                    double ua = double.parse(fullname.text);
 
                     setState(() {
                       hitungNilai(t, u, ua);
