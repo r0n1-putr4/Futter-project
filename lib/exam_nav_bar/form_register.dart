@@ -231,7 +231,18 @@ class _FormRegisterState extends State<FormRegister> {
                   ],
                 ),
                 const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    double t = double.parse(fullname.text);
+                    double u = double.parse(cUTS.text);
+                    double ua = double.parse(cUAS.text);
 
+                    setState(() {
+                      hitungNilai(t, u, ua);
+                    });
+                  },
+                  child: Text("Hitung"),
+                ),
                 CostumeButton(
                   color: Colors.white,
                   onPressed: () {
