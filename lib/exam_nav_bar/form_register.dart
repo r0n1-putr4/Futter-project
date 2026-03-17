@@ -22,7 +22,7 @@ class _FormRegisterState extends State<FormRegister> {
   bool musik = false;
   bool traveling = false;
 
-  static const listAgama = [
+  final listAgama = [
     "Islam",
     "Kristen Protestan",
     "Kristen Katolik",
@@ -50,7 +50,7 @@ class _FormRegisterState extends State<FormRegister> {
     }
   }
 
-  Future selectDate() async {
+  Future selectDate() async {//Digunakan karena showDatePicker() butuh waktu (popup UI)
     DateTime? pickDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
