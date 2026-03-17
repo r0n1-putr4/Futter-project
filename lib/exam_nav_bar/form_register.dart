@@ -31,6 +31,25 @@ class _FormRegisterState extends State<FormRegister> {
     "Konghucu",
   ];
 
+  double nilaiAkhir = 0;
+  String grade = "";
+
+  void hitungNilai(double tugas, double uts, double uas) {
+    nilaiAkhir = (tugas * 0.2) + (uts * 0.3) + (uas * 0.5);
+
+    if (nilaiAkhir >= 85) {
+      grade = "A";
+    } else if (nilaiAkhir >= 70) {
+      grade = "B";
+    } else if (nilaiAkhir >= 60) {
+      grade = "C";
+    } else if (nilaiAkhir >= 50) {
+      grade = "D";
+    } else {
+      grade = "E";
+    }
+  }
+
   Future selectDate() async {
     DateTime? pickDate = await showDatePicker(
       context: context,
@@ -96,8 +115,10 @@ class _FormRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 10),
                 Text("Pilih Agama", style: TextStyle(fontSize: 18)),
-                DropdownButtonFormField<String>(// Widget Menampilkan DropdownButton
-                  decoration: InputDecoration(// Mengatur tampilan field seperti TextField
+                DropdownButtonFormField<String>(
+                  // Widget Menampilkan DropdownButton
+                  decoration: InputDecoration(
+                    // Mengatur tampilan field seperti TextField
                     border: OutlineInputBorder(), //Memberi border kotak
                   ),
                   items: //item data yang bersumber dari variable array listAgama
@@ -106,13 +127,16 @@ class _FormRegisterState extends State<FormRegister> {
                             (e) => DropdownMenuItem(value: e, child: Text(e)),
                           )
                           .toList(),
-                  onChanged: (val) {// Dipanggil saat user memilih item
+                  onChanged: (val) {
+                    // Dipanggil saat user memilih item
                     setState(() {
                       valAgama = val;
                     });
                   },
-                  validator: (value) {// Fungsi untuk validasi input
-                    if (value == null || value.isEmpty) {// belum pilih atau kosong
+                  validator: (value) {
+                    // Fungsi untuk validasi input
+                    if (value == null || value.isEmpty) {
+                      // belum pilih atau kosong
                       return "Agama wajib dipilih";
                     }
                     return null;
