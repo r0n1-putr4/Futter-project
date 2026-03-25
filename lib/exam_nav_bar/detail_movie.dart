@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DetailMovie extends StatelessWidget {
-  final Map<String, dynamic> movie;
+  final Map<String, dynamic> movie;//Menyimpan data dalam bentuk key → value
+  // Bisa berisi apa saja
+  // Map<String, dynamic> movie = {
+  //   "judul": "Avengers",
+  //   "tahun": 2019,
+  //   "rating": 8.5,
+  //   "isFavorite": true
+  // };
 
   const DetailMovie(this.movie, {super.key});
 

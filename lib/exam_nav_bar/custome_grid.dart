@@ -30,6 +30,7 @@ class _CustomeGridState extends State<CustomeGrid> {
             childAspectRatio: 0.7, // Adjust based on your design
           ),
           itemBuilder: (context, index) {
+            Map<String, dynamic> item = listMovie[index];
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -46,7 +47,7 @@ class _CustomeGridState extends State<CustomeGrid> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        "images/${listMovie[index]["gambar"]}",
+                        "images/${item["gambar"]}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -63,13 +64,13 @@ class _CustomeGridState extends State<CustomeGrid> {
                     child: Column(
                       children: [
                         Text(
-                          listMovie[index]["judul"],
+                          item["judul"],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
-                        Text("Rp. ${listMovie[index]["harga"]}"),
+                        Text("Rp. ${item["harga"]}"),
                       ],
                     ),
                   ),

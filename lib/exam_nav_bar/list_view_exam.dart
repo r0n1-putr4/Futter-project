@@ -53,63 +53,68 @@ class _ListViewExamState extends State<ListViewExam> {
           itemCount: listBerita.length,
           itemBuilder: (context, index) {
             Map<String, dynamic> item = listBerita[index];
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              elevation: 3,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // Aligns text to the top
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        item['gambar'],
-                        fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: (){
+
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 3,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // Aligns text to the top
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          item['gambar'],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  // Space between image and text
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          listBerita[index]['judul'],
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        Text(
-                          listBerita[index]['tanggal'],
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[600],
+                    SizedBox(width: 10),
+                    // Space between image and text
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            listBerita[index]['judul'],
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 24),
                           ),
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            RatingBarIndicator(
-                              rating: listBerita[index]['rating'],
-                              itemBuilder:
-                                  (context, index) =>
-                                      Icon(Icons.star, color: Colors.amber),
-                              itemCount: 5,
-                              itemSize: 15,
-                              direction: Axis.horizontal,
+                          Text(
+                            listBerita[index]['tanggal'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600],
                             ),
-                            SizedBox(width: 20),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                      ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              RatingBarIndicator(
+                                rating: listBerita[index]['rating'],
+                                itemBuilder:
+                                    (context, index) =>
+                                        Icon(Icons.star, color: Colors.amber),
+                                itemCount: 5,
+                                itemSize: 15,
+                                direction: Axis.horizontal,
+                              ),
+                              SizedBox(width: 20),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

@@ -28,6 +28,7 @@ class CardParsing extends StatelessWidget {
               text: "Wifi",
               warnaIcon: Colors.red,
             ),
+
           ],
         ),
       ),
