@@ -116,10 +116,12 @@ class _FormRegisterState extends State<FormRegister> {
                 SizedBox(height: 10),
                 Text("Pilih Agama", style: TextStyle(fontSize: 18)),
                 DropdownButtonFormField<String>(
+
                   // Widget Menampilkan DropdownButton
                   decoration: InputDecoration(
                     // Mengatur tampilan field seperti TextField
                     border: OutlineInputBorder(), //Memberi border kotak
+                    labelText: "Pilih Agama",
                   ),
                   items: //item data yang bersumber dari variable array listAgama
                       listAgama
