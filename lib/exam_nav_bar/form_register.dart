@@ -120,7 +120,7 @@ class _FormRegisterState extends State<FormRegister> {
                   // Widget Menampilkan DropdownButton
                   decoration: InputDecoration(
                     // Mengatur tampilan field seperti TextField
-                    border: OutlineInputBorder(), //Memberi border kotak
+                    border: OutlineInputBorder(),
                     labelText: "Pilih Agama",
                   ),
                   items: //item data yang bersumber dari variable array listAgama

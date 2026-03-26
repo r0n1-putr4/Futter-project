@@ -10,7 +10,7 @@ import 'exam_nav_bar/form_register.dart';
 void main() {
   runApp(MaterialApp(
     title: "Belajar Flutter",
-    home: const ListViewPage(),
+    home: const FormRegister(),
     debugShowCheckedModeBanner: false,
     routes: {
       '/halSatu' : (context) => HalSatu(),
